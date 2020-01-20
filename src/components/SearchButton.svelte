@@ -1,5 +1,11 @@
 <script>
+  import { createEventDispatcher } from "svelte";
 
+  const dispatch = createEventDispatcher();
+
+  function runSearch() {
+    dispatch("runSearch");
+  }
 </script>
 
 <style>
@@ -22,4 +28,4 @@
   }
 </style>
 
-<button class="search-button">SEARCH</button>
+<button class="search-button" on:click={runSearch}>SEARCH</button>

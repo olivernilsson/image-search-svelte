@@ -1,30 +1,19 @@
 <script>
   import SearchButton from "./SearchButton.svelte";
-  /*const SearchBar = props => {
-    const ref = useRef();
-    const state = useSearch();
 
-    useEffect(() => {
-      if (window.history.state) {
-        clickHandler();
-      }
-    }, []);
+  let term = "";
 
-    const clickHandler = async () => {
-      state.setSearchTerm(ref.current.value || window.history.state);
-      const raw = await fetch(
-        "https://api.unsplash.com/search/photos?" +
-          "client_id=65f622264cdd351d875fb557cdefbee529978cbe2e748d6df31ef0d1636d1971&" +
-          "query=" +
-          encodeURIComponent(ref.current.value || window.history.state)
-      );
-      await window.history.pushState(ref.current.value, "term");
-      const response = await raw.json();
-      await state.setPageNumber(1);
-      await state.setTotalPageNumber(response.total_pages);
-      await props.getImages(response);
-    };
-  };*/
+  const clickHandler = async () => {
+    console.log("running");
+    const raw = await fetch(
+      "https://api.unsplash.com/search/photos?" +
+        "client_id=65f622264cdd351d875fb557cdefbee529978cbe2e748d6df31ef0d1636d1971&" +
+        "query=" +
+        encodeURIComponent(term)
+    );
+    const response = await raw.json();
+    console.log(response);
+  };
 </script>
 
 <style>
@@ -56,6 +45,6 @@
 </style>
 
 <div class="search-bar-wrapper">
-  <input class="search-bar" />
-  <SearchButton />
+  <input class="search-bar" bind:value={term} />
+  <SearchButton on:runSearch={clickHandler} />
 </div>
