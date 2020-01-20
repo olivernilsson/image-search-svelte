@@ -1,10 +1,9 @@
 <script>
-
+  export let img;
 </script>
 
 <style>
   .image-small {
-    background-image: url(${props.image.urls.small});
     width: 250px;
     height: 250px;
     margin: 30px;
@@ -18,4 +17,4 @@
   }
 </style>
 
-<img class="image-small" alt="test" />
+<img src={img.urls.small} class="image-small" alt="test" />

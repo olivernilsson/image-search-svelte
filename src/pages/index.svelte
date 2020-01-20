@@ -1,5 +1,8 @@
 <script>
   import SearchBar from "../components/SearchBar.svelte";
+  import Image from "../components/Image.svelte";
+  import { writable } from "svelte/store";
+  import { images } from "../stores.js";
 </script>
 
 <style>
@@ -47,4 +50,11 @@
   <div class="heading">IMAGE SEARCH</div>
   <div class="undertext">TYPE SOMETHING IN</div>
   <SearchBar />
+  <div class="image-wrapper">
+    {#if $images.results}
+      {#each $images.results as image}
+        <Image img={image} />
+      {/each}
+    {/if}
+  </div>
 </div>

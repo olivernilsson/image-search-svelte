@@ -1,10 +1,14 @@
 <script>
   import SearchButton from "./SearchButton.svelte";
+  import { images } from "../stores.js";
+
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 
   let term = "";
 
   const clickHandler = async () => {
-    console.log("running");
     const raw = await fetch(
       "https://api.unsplash.com/search/photos?" +
         "client_id=65f622264cdd351d875fb557cdefbee529978cbe2e748d6df31ef0d1636d1971&" +
@@ -12,7 +16,7 @@
         encodeURIComponent(term)
     );
     const response = await raw.json();
-    console.log(response);
+    await images.update(e => response);
   };
 </script>
 
