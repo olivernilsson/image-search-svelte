@@ -1,8 +1,10 @@
 <script>
   import SearchBar from "../components/SearchBar.svelte";
   import Image from "../components/Image.svelte";
+  import ImageDetail from "./imageDetail.svelte";
   import { writable } from "svelte/store";
   import { images } from "../stores.js";
+  import { Router, Link, Route } from "svelte-routing";
 </script>
 
 <style>
@@ -46,15 +48,20 @@
   }
 </style>
 
-<div class="container">
-  <div class="heading">IMAGE SEARCH</div>
-  <div class="undertext">TYPE SOMETHING IN</div>
-  <SearchBar />
-  <div class="image-wrapper">
-    {#if $images.results}
-      {#each $images.results as image}
-        <Image img={image} />
-      {/each}
-    {/if}
+<Router>
+  <div class="container">
+    <div class="heading">IMAGE SEARCH</div>
+    <div class="undertext">TYPE SOMETHING IN</div>
+    <SearchBar />
+    <div class="image-wrapper">
+      {#if $images.results}
+        {#each $images.results as image}
+          <Link to="/imageDetail">
+            <Image img={image} />
+          </Link>
+          <Route path="imageDetail" component={ImageDetail} {image} />
+        {/each}
+      {/if}
+    </div>
   </div>
-</div>
+</Router>
