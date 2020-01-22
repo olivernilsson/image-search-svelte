@@ -1,6 +1,7 @@
 <script>
   import ImageFull from "../components/ImageFull.svelte";
-  export let image;
+  import { navigate } from "svelte-routing";
+  import { storedImage } from "../stores.js";
 </script>
 
 <style>
@@ -33,8 +34,13 @@
 </style>
 
 <div class="container">
-  {console.log(image)}
-  <h1 class="heading">{image.description}</h1>
-  <ImageFull img={image.urls.full} />
-  <h2 class="undertext">{image.alt_description}</h2>
+
+  <h1 class="heading">{$storedImage.description}</h1>
+  {#if !$storedImage}
+    {() => {
+      navigate('/');
+    }}
+  {/if}
+  <ImageFull img={$storedImage.urls.full} />
+  <h2 class="undertext">{$storedImage.alt_description}</h2>
 </div>
