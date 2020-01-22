@@ -35,7 +35,11 @@
 
 <div class="container">
 
-  <h1 class="heading">{$storedImage.description}</h1>
+  <h1 class="heading">
+    {#if $storedImage.description}
+      {$storedImage.description}
+    {:else}Untitled image{/if}
+  </h1>
   {#if !$storedImage}
     {() => {
       navigate('/');
