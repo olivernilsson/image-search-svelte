@@ -2,6 +2,7 @@
   import SearchBar from "../components/SearchBar.svelte";
   import Image from "../components/Image.svelte";
   import ImageDetail from "./imageDetail.svelte";
+  import Pagination from "../components/Pagination.svelte";
   import { writable } from "svelte/store";
   import { images, storedImage } from "../stores.js";
   import { Router, Link, Route } from "svelte-routing";
@@ -59,6 +60,10 @@
           <Image img={image} />
         </Link>
       {/each}
+      {#if !$images.total}
+        <div class="undertext">No images found</div>
+      {/if}
+      <Pagination />
     {/if}
   </div>
 </div>

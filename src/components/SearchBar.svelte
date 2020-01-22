@@ -1,6 +1,11 @@
 <script>
   import SearchButton from "./SearchButton.svelte";
-  import { images } from "../stores.js";
+  import {
+    searchTerm,
+    images,
+    pageNumber,
+    totalPageNumber
+  } from "../stores.js";
 
   import { createEventDispatcher } from "svelte";
 
@@ -9,14 +14,18 @@
   let term = "";
 
   const clickHandler = async () => {
+    await searchTerm.update(e => term);
+    console.log($searchTerm);
     const raw = await fetch(
       "https://api.unsplash.com/search/photos?" +
         "client_id=65f622264cdd351d875fb557cdefbee529978cbe2e748d6df31ef0d1636d1971&" +
         "query=" +
-        encodeURIComponent(term)
+        encodeURIComponent($searchTerm)
     );
     const response = await raw.json();
     await images.update(e => response);
+    await pageNumber.update(e => 1);
+    await totalPageNumber.update(e => response.total_pages);
   };
 </script>
 
